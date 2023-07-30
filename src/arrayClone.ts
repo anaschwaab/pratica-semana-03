@@ -5,5 +5,5 @@
  * @param {T[]} arr
  */
 export const arrayClone = <T>(arr: T[]): T[] => {
-  return [];
+  return arr.slice();
 };
