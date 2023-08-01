@@ -15,5 +15,28 @@ interface MostFrequentType {
 export const findFirstMostFrequent = (
   inputArray: Array<string | number>,
 ): MostFrequentType => {
-  return { value: '', occurrences: 0 };
+  if (inputArray.length === 0) {
+    return { value: '', occurrences: 0 };
+  }
+
+  const frequencyMap = new Map<string | number, number>();
+
+  let maxOccurrences = 0;
+  let mostFrequentValue: string | number = '';
+  let firstOccurrence: boolean = true;
+
+  for (const value of inputArray) {
+    const currentOccurrences = (frequencyMap.get(value) || 0) + 1;
+    frequencyMap.set(value, currentOccurrences);
+
+    if (currentOccurrences > maxOccurrences) {
+      maxOccurrences = currentOccurrences;
+      mostFrequentValue = value;
+      firstOccurrence = true;
+    } else if (currentOccurrences === maxOccurrences && firstOccurrence) {
+      mostFrequentValue = value;
+      firstOccurrence = false;
+    }
+  }
+  return { value: mostFrequentValue, occurrences: maxOccurrences };
 };
